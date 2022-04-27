@@ -1,8 +1,8 @@
 package omgdendi.nmbackend.common
 
-typealias UserId = Int
-typealias MapId = Int
-typealias PlaceId = Int
-typealias CommentId = Int
+typealias UserId = Long
+typealias MapId = Long
+typealias PlaceId = Long
+typealias CommentId = Long
 
 typealias URL = String
