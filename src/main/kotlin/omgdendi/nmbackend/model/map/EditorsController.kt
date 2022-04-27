@@ -10,7 +10,7 @@ class EditorsController {
     data class AddEditorsRequest(val editors: List<UserId>)
 
     @PostMapping("/{mapId}/editors")
-    fun addEditorsToMap(@RequestBody x: AddEditorsRequest, @PathVariable mapId: MapId) {
+    fun addEditorsToMap(@RequestBody request: AddEditorsRequest, @PathVariable mapId: MapId) {
         TODO()
     }
 

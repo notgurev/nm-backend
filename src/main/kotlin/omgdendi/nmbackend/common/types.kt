@@ -4,3 +4,5 @@ typealias UserId = Int
 typealias MapId = Int
 typealias PlaceId = Int
 typealias CommentId = Int
+
+typealias URL = String

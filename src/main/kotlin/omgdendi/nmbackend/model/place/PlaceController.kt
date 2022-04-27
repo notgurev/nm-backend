@@ -1,27 +1,12 @@
 package omgdendi.nmbackend.model.place
 
-import omgdendi.nmbackend.common.CommentId
 import omgdendi.nmbackend.common.PlaceId
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/places")
-class PlaceController {
-    @PostMapping("{placeId}/comments")
-    fun addCommentToPlace(@RequestBody text: String, @PathVariable placeId: PlaceId) {
-        TODO()
-    }
-
-    @DeleteMapping("{placeId}/comments/{commentId}")
-    fun removeCommentFromPlace(@PathVariable commentId: CommentId, @PathVariable placeId: PlaceId) {
-        TODO()
-    }
-
-    @PostMapping("{placeId}/comments/{commentId}")
-    fun editComment(@PathVariable commentId: CommentId, @PathVariable placeId: PlaceId) {
-        TODO()
-    }
-
+class PlaceController @Autowired constructor() {
     @PostMapping("{placeId}/pictures")
     fun addPictureToPlace(@PathVariable placeId: PlaceId) {
         TODO()

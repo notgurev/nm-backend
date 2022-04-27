@@ -1,16 +1,15 @@
 package omgdendi.nmbackend.model.place
 
+import omgdendi.nmbackend.common.PlaceId
+import omgdendi.nmbackend.common.URL
 import omgdendi.nmbackend.model.comment.Comment
 
-typealias URL = String
-
-class Coordinates
-
 class Place(
-    val pictureUrl: URL,
-    val coordinates: Coordinates,
-    val title: String,
-    val description: String,
-    val comments: List<Comment>
-) {
-}
+    var id: PlaceId = 0,
+    var pictureUrl: URL?,
+    var latitude: Float = 0.0f,
+    var longitude: Float = 0.0f,
+    var title: String,
+    var description: String = "",
+    var comments: MutableList<Comment> = mutableListOf()
+)
