@@ -11,4 +11,8 @@ class UserService @Autowired constructor(val userRepository: UserRepository) {
     fun getUserById(id: UserId): User {
         return userRepository.findById(id).orElseThrow { IllegalArgumentException("User with id = $id not found") }
     }
+
+    fun getUsersByIds(it: Iterable<UserId>): Iterable<User> {
+        return userRepository.findAllById(it)
+    }
 }

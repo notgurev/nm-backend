@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*
 class PlaceController @Autowired constructor() {
     @PostMapping("{placeId}/pictures")
     fun addPictureToPlace(@PathVariable placeId: PlaceId) {
+        // то же самое что edit
         TODO()
     }
 
