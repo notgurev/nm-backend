@@ -7,7 +7,7 @@ class User(
     val lastName: String,
     val username: String,
     val password: String,
-    val friends: List<User>,
-    val createdPlaceMaps: List<PlaceMap>
+    val friends: MutableList<User>,
+    val createdPlaceMaps: MutableList<PlaceMap>
 ) {
 }
