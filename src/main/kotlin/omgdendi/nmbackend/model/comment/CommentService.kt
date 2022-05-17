@@ -1,9 +1,6 @@
 package omgdendi.nmbackend.model.comment
 
-import omgdendi.nmbackend.common.CommentId
-import omgdendi.nmbackend.common.CommonException
-import omgdendi.nmbackend.common.PlaceId
-import omgdendi.nmbackend.common.UserId
+import omgdendi.nmbackend.common.*
 import omgdendi.nmbackend.model.place.PlaceService
 import omgdendi.nmbackend.model.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,7 +24,7 @@ class CommentService @Autowired constructor(
 
     fun removeComment(subject: UserId, placeId: PlaceId, commentId: CommentId) {
         val comment = getCommentById(commentId)
-        if (comment.author.id != subject) throw CommonException("Removing other user's comments is forbidden")
+        if (comment.author.id != subject) throw RestrictedActionException("Removing other user's comments is forbidden")
 
         val place = placeService.getPlaceById(placeId)
         place.comments.remove(comment)
@@ -37,7 +34,7 @@ class CommentService @Autowired constructor(
 
     fun editComment(subject: UserId, commentId: CommentId, text: String) {
         val comment = getCommentById(commentId)
-        if (comment.author.id != subject) throw CommonException("Editing other user's comments is forbidden")
+        if (comment.author.id != subject) throw RestrictedActionException("Editing other user's comments is forbidden")
         comment.text = text
     }
 

@@ -1,7 +1,7 @@
 package omgdendi.nmbackend.model.map
 
 import omgdendi.nmbackend.common.MapId
-import omgdendi.nmbackend.common.OwnershipException
+import omgdendi.nmbackend.common.RestrictedActionException
 import omgdendi.nmbackend.common.UserId
 import omgdendi.nmbackend.model.place.Place
 import omgdendi.nmbackend.model.place.PlaceRepository
@@ -29,7 +29,7 @@ class MapService @Autowired constructor(
     fun deleteMap(subject: UserId, mapId: MapId) {
         val map = getMapById(mapId)
         if (map.owner.id != subject) {
-            throw OwnershipException("User $subject cannot delete map $mapId")
+            throw RestrictedActionException("User $subject cannot delete map $mapId")
         }
         map.owner.createdPlaceMaps.remove(map)
         mapRepository.delete(map)
@@ -42,7 +42,7 @@ class MapService @Autowired constructor(
         val m = mapRepository.getById(mapId)
 
         if (!m.canBeEditedBy(subject)) {
-            throw OwnershipException("User $subject cannot edit map $mapId")
+            throw RestrictedActionException("User $subject cannot edit map $mapId")
         }
 
         val p = Place(latitude = latitude, longitude = longitude, description = description, title = title)
