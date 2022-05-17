@@ -7,14 +7,22 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class CommentController @Autowired constructor(val commentService: CommentService) {
     @PostMapping("/{placeId}/comments")
-    fun addCommentToPlace(@RequestBody text: String, @PathVariable placeId: PlaceId): StringMap {
-        commentService.addCommentToPlace(placeId, FakeContext.USER_ID, text)
+    fun addCommentToPlace(
+        @RequestBody text: String,
+        @PathVariable placeId: PlaceId,
+        @RequestHeader("Authorization") subject: UserId
+    ): StringMap {
+        commentService.addCommentToPlace(placeId, subject, text)
         return message("comment added")
     }
 
     @DeleteMapping("/{placeId}/comments/{commentId}")
-    fun removeCommentFromPlace(@PathVariable commentId: CommentId, @PathVariable placeId: PlaceId): StringMap {
-        commentService.removeComment(FakeContext.USER_ID, placeId, commentId)
+    fun removeCommentFromPlace(
+        @PathVariable commentId: CommentId,
+        @PathVariable placeId: PlaceId,
+        @RequestHeader("Authorization") subject: UserId
+    ): StringMap {
+        commentService.removeComment(subject, placeId, commentId)
         return message("comment removed")
     }
 
@@ -22,9 +30,10 @@ class CommentController @Autowired constructor(val commentService: CommentServic
     fun editComment(
         @PathVariable commentId: CommentId,
         @RequestBody text: String,
-        @PathVariable placeId: PlaceId
+        @PathVariable placeId: PlaceId,
+        @RequestHeader("Authorization") subject: UserId
     ): StringMap {
-        commentService.editComment(FakeContext.USER_ID, commentId, text)
+        commentService.editComment(subject, commentId, text)
         return message("comment edited")
     }
 }
