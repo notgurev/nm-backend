@@ -4,6 +4,7 @@ import omgdendi.nmbackend.common.CommonException
 import omgdendi.nmbackend.common.MapId
 import omgdendi.nmbackend.common.UserId
 import omgdendi.nmbackend.model.place.Place
+import omgdendi.nmbackend.model.place.PlaceRepository
 import omgdendi.nmbackend.model.user.User
 import omgdendi.nmbackend.model.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,14 +15,15 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class MapService @Autowired constructor(
     val mapRepository: MapRepository,
+    val placeRepository: PlaceRepository,
     val userService: UserService
 ) {
-    fun createMap(ownerId: UserId, title: String, editorIds: List<UserId>? = null) {
+    fun createMap(ownerId: UserId, title: String, editorIds: List<UserId>? = null): PlaceMap {
         val owner = userService.getById(ownerId)
         val editors = editorIds?.let { userService.getUsersByIds(it) } ?: mutableListOf()
         val map = PlaceMap(owner = owner, editors = editors as MutableList<User>, title = title)
         owner.createdPlaceMaps.add(map)
-        mapRepository.save(map)
+        return mapRepository.save(map)
     }
 
     fun deleteMap(subject: UserId, mapId: MapId) {
@@ -34,7 +36,19 @@ class MapService @Autowired constructor(
     fun addPlaceToMap(mapId: MapId, title: String, description: String, latitude: Float, longitude: Float) {
         val m = mapRepository.getById(mapId)
         val p = Place(latitude = latitude, longitude = longitude, description = description, title = title)
+        placeRepository.save(p)
         m.places.add(p)
+    }
+
+    fun addEditorsToMap(mapId: MapId, editorIDs: Iterable<UserId>) {
+        val m = mapRepository.getById(mapId)
+        val editors = userService.getUsersByIds(editorIDs)
+        m.editors.addAll(editors)
+    }
+
+    fun removeEditorFromMap(mapId: MapId, editorId: UserId) {
+        val m = mapRepository.getById(mapId)
+        m.editors.removeIf { it.id == editorId }
     }
 
     fun getMapById(id: MapId) = mapRepository.getById(id)
