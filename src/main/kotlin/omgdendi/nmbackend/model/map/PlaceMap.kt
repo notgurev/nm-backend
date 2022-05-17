@@ -23,4 +23,10 @@ class PlaceMap(
 
     @OneToMany
     var places: MutableList<Place> = mutableListOf(),
-)
+) {
+    fun canBeEditedBy(subjectId: UserId): Boolean {
+        val isEditor = editors.map { it.id }.contains(subjectId)
+        val isOwner = owner.id == subjectId
+        return (isOwner || isEditor)
+    }
+}

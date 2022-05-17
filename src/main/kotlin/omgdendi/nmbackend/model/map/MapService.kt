@@ -41,13 +41,14 @@ class MapService @Autowired constructor(
     ): Place {
         val m = mapRepository.getById(mapId)
 
-        if (m.editors.map { it.id }.contains(subject).not()) {
+        if (!m.canBeEditedBy(subject)) {
             throw OwnershipException("User $subject cannot edit map $mapId")
         }
 
         val p = Place(latitude = latitude, longitude = longitude, description = description, title = title)
         placeRepository.save(p)
         m.places.add(p)
+
         return p
     }
 

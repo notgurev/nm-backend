@@ -15,5 +15,12 @@ class PlaceService @Autowired constructor(
 ) {
     fun getPlaceById(id: PlaceId) = placeRepository.getById(id)
 
-    fun addPictureToPlace(placeId: PlaceId, file: MultipartFile) = mediaService.saveFile(file)
+    fun addPictureToPlace(placeId: PlaceId, file: MultipartFile): String {
+        val filename = mediaService.saveFile(file)
+
+        val place = getPlaceById(placeId)
+        place.pictureUrl = filename
+
+        return filename
+    }
 }

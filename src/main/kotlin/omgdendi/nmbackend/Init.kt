@@ -24,7 +24,10 @@ class Init @Autowired constructor(
     @EventListener(ApplicationReadyEvent::class)
     @Transactional
     fun init() {
-        // todo add empty check
+        if (userService.userRepository.count() > 0) {
+            println("--- --- --- Already initialized --- --- ---")
+            return
+        }
         val notgurev = userService.createUser("Никита", "Гурьев", "notgurev", "<todo>")
         val omgdendi = userService.createUser("Абай", "Байтаков", "omgdendi", "<todo>")
         val sealOfTime = userService.createUser("Матвей", "Вдовицын", "sealOfTime", "<todo>")
@@ -42,5 +45,7 @@ class Init @Autowired constructor(
         commentService.addCommentToPlace(p.id, notgurev.id, "Я тут учусь!")
 
         makeFriends(notgurev, omgdendi)
+
+        println("--- --- --- Init complete --- --- ---")
     }
 }
