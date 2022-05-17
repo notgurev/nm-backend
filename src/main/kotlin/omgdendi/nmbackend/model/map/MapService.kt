@@ -1,7 +1,7 @@
 package omgdendi.nmbackend.model.map
 
 import omgdendi.nmbackend.common.MapId
-import omgdendi.nmbackend.common.RestrictedActionException
+import omgdendi.nmbackend.common.exceptions.RestrictedActionException
 import omgdendi.nmbackend.common.UserId
 import omgdendi.nmbackend.model.place.Place
 import omgdendi.nmbackend.model.place.PlaceRepository

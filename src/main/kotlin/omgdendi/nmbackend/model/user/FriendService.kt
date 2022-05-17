@@ -1,6 +1,6 @@
 package omgdendi.nmbackend.model.user
 
-import omgdendi.nmbackend.common.CommonException
+import omgdendi.nmbackend.common.exceptions.CommonException
 import omgdendi.nmbackend.common.UserId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

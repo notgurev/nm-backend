@@ -1,6 +1,7 @@
 package omgdendi.nmbackend.model.comment
 
 import omgdendi.nmbackend.common.*
+import omgdendi.nmbackend.common.exceptions.RestrictedActionException
 import omgdendi.nmbackend.model.place.PlaceService
 import omgdendi.nmbackend.model.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
