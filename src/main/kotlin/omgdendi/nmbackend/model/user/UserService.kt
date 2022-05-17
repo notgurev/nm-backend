@@ -13,4 +13,9 @@ class UserService @Autowired constructor(val userRepository: UserRepository) {
     fun getUsersByIds(IDs: Iterable<UserId>): Iterable<User> {
         return userRepository.findAllById(IDs)
     }
+
+    fun createUser(firstname: String, lastname: String, username: String, password: String) {
+        val u = User(firstname = firstname, lastName = lastname, username = username, password = password)
+        userRepository.save(u)
+    }
 }

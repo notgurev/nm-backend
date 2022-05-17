@@ -33,20 +33,8 @@ class Init @Autowired constructor(
     @EventListener(ApplicationReadyEvent::class)
     @Transactional
     fun init() {
-        userRepository.saveAll(
-            listOf(
-                User(
-                    firstname = "Nikita", lastName = "Gurev",
-                    username = "notgurev", password = "<todo>",
-                    friends = mutableListOf(), createdPlaceMaps = mutableListOf()
-                ),
-                User(
-                    firstname = "Abay", lastName = "Baytakov",
-                    username = "omgdendi", password = "<todo>",
-                    friends = mutableListOf(), createdPlaceMaps = mutableListOf()
-                ),
-            )
-        )
+        userService.createUser("Nikita", "Gurev", "notgurev", "<todo>")
+        userService.createUser("Abay", "Baytakov", "omgdendi", "<todo>")
 
         val notgurev: User = userRepository.findByUsername("notgurev")!!
         val omgdendi: User = userRepository.findByUsername("omgdendi")!!
