@@ -1,5 +1,6 @@
 package omgdendi.nmbackend.model.user
 
+import omgdendi.nmbackend.common.CommonException
 import omgdendi.nmbackend.common.UserId
 import omgdendi.nmbackend.nullable
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,6 +15,8 @@ class FriendService @Autowired constructor(val userRepository: UserRepository) {
             userRepository.findById(friend).nullable?.let {
                 if (!this.friends.contains(it)) {
                     this.friends.add(it)
+                } else {
+                    throw CommonException("User already in friend list")
                 }
             }
         }
@@ -24,6 +27,8 @@ class FriendService @Autowired constructor(val userRepository: UserRepository) {
             userRepository.findById(friend).nullable?.let {
                 if (this.friends.contains(it)) {
                     this.friends.remove(it)
+                } else {
+                    throw CommonException("User not present in friend list")
                 }
             }
         }
