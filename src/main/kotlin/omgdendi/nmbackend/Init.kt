@@ -9,7 +9,6 @@ import omgdendi.nmbackend.model.map.PlaceMap
 import omgdendi.nmbackend.model.place.Place
 import omgdendi.nmbackend.model.place.PlaceRepository
 import omgdendi.nmbackend.model.place.PlaceService
-import omgdendi.nmbackend.model.user.User
 import omgdendi.nmbackend.model.user.UserRepository
 import omgdendi.nmbackend.model.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -36,8 +35,8 @@ class Init @Autowired constructor(
         userService.createUser("Nikita", "Gurev", "notgurev", "<todo>")
         userService.createUser("Abay", "Baytakov", "omgdendi", "<todo>")
 
-        val notgurev: User = userRepository.findByUsername("notgurev")!!
-        val omgdendi: User = userRepository.findByUsername("omgdendi")!!
+        val notgurev = userService.getByUsername("notgurev")
+        val omgdendi = userService.getByUsername("omgdendi")
 
         var m = PlaceMap(owner = notgurev, title = "test map")
         notgurev.createdPlaceMaps.add(m)

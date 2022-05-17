@@ -18,7 +18,7 @@ class CommentService @Autowired constructor(
     val commentRepository: CommentRepository
 ) {
     fun addCommentToPlace(placeId: PlaceId, authorId: UserId, text: String) {
-        val author = userService.getUserById(authorId)
+        val author = userService.getById(authorId)
         val place = placeService.getPlaceById(placeId)
         val comment = Comment(author = author, text = text, place = place)
         commentRepository.save(comment)
