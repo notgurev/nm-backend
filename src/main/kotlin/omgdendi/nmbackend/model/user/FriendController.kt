@@ -1,5 +1,6 @@
 package omgdendi.nmbackend.model.user
 
+import omgdendi.nmbackend.common.JSON
 import omgdendi.nmbackend.common.StringMap
 import omgdendi.nmbackend.common.UserId
 import omgdendi.nmbackend.common.message
@@ -10,13 +11,13 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/friends")
 class FriendController @Autowired constructor(val friendService: FriendService) {
     @PostMapping("{friendId}")
-    fun addFriend(@PathVariable friendId: UserId, @RequestHeader("Authorization") subject: UserId): StringMap {
+    fun addFriend(@PathVariable friendId: UserId, @RequestHeader("Authorization") subject: UserId): JSON {
         friendService.addFriend(subject, friendId)
         return message("added to friends")
     }
 
     @DeleteMapping("{friendId}")
-    fun removeFriend(@PathVariable friendId: UserId, @RequestHeader("Authorization") subject: UserId): StringMap {
+    fun removeFriend(@PathVariable friendId: UserId, @RequestHeader("Authorization") subject: UserId): JSON {
         friendService.removeFriend(subject, friendId)
         return message("removed from friends")
     }
