@@ -33,11 +33,12 @@ class MapService @Autowired constructor(
         mapRepository.delete(map)
     }
 
-    fun addPlaceToMap(mapId: MapId, title: String, description: String, latitude: Float, longitude: Float) {
+    fun addPlaceToMap(mapId: MapId, title: String, description: String, latitude: Float, longitude: Float) : Place {
         val m = mapRepository.getById(mapId)
         val p = Place(latitude = latitude, longitude = longitude, description = description, title = title)
         placeRepository.save(p)
         m.places.add(p)
+        return p
     }
 
     fun addEditorsToMap(mapId: MapId, editorIDs: Iterable<UserId>) {
