@@ -13,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class CommentService @Autowired constructor(
-    val userService: UserService, val placeService: PlaceService, val commentRepository: CommentRepository
+    val userService: UserService,
+    val placeService: PlaceService,
+    val commentRepository: CommentRepository
 ) {
     fun addCommentToPlace(placeId: PlaceId, authorId: UserId, text: String) {
         val author = userService.getUserById(authorId)
@@ -23,10 +25,14 @@ class CommentService @Autowired constructor(
         place.comments.add(comment)
     }
 
-    fun removeComment(subject: UserId, commentId: CommentId) {
+    fun removeComment(subject: UserId, placeId: PlaceId, commentId: CommentId) {
         val comment = getCommentById(commentId)
         if (comment.author.id != subject) throw CommonException("Removing other user's comments is forbidden")
-        commentRepository.delete(comment) // todo delete from list?
+
+        val place = placeService.getPlaceById(placeId)
+        place.comments.remove(comment)
+
+        commentRepository.delete(comment)
     }
 
     fun editComment(subject: UserId, commentId: CommentId, text: String) {
