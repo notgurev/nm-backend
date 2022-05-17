@@ -2,6 +2,7 @@ package omgdendi.nmbackend.model.place
 
 import omgdendi.nmbackend.common.PlaceId
 import omgdendi.nmbackend.common.StringMap
+import omgdendi.nmbackend.common.message
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -21,8 +22,8 @@ class PlaceController @Autowired constructor(
     }
 
     @DeleteMapping("{placeId}/pictures")
-    fun deletePictureFromPlace(@PathVariable placeId: PlaceId) {
-        TODO()
+    fun deletePictureFromPlace(@PathVariable placeId: PlaceId): StringMap {
+        return message("not implemented")
     }
 
     @GetMapping("{placeId}")

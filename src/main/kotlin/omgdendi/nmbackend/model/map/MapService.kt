@@ -33,7 +33,7 @@ class MapService @Autowired constructor(
         mapRepository.delete(map)
     }
 
-    fun addPlaceToMap(mapId: MapId, title: String, description: String, latitude: Float, longitude: Float) : Place {
+    fun addPlaceToMap(mapId: MapId, title: String, description: String, latitude: Float, longitude: Float): Place {
         val m = mapRepository.getById(mapId)
         val p = Place(latitude = latitude, longitude = longitude, description = description, title = title)
         placeRepository.save(p)
@@ -53,4 +53,6 @@ class MapService @Autowired constructor(
     }
 
     fun getMapById(id: MapId) = mapRepository.getById(id)
+
+    fun getAllMaps(): MutableList<PlaceMap> = mapRepository.findAll()
 }

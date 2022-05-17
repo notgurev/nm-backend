@@ -7,3 +7,5 @@ typealias CommentId = Long
 typealias StringMap = Map<String, String>
 
 typealias URL = String
+
+fun message(text: String) = mutableMapOf("message" to text) as StringMap

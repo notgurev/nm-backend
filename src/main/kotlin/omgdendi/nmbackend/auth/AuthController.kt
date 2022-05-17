@@ -1,5 +1,7 @@
 package omgdendi.nmbackend.auth
 
+import omgdendi.nmbackend.common.StringMap
+import omgdendi.nmbackend.common.message
 import omgdendi.nmbackend.model.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping
@@ -15,14 +17,13 @@ class AuthController @Autowired constructor(
     data class RegisterRequest(val firstName: String, val lastName: String, val username: String, val password: String)
 
     @PostMapping("/register")
-    fun register(@RequestBody x: RegisterRequest) {
+    fun register(@RequestBody x: RegisterRequest): StringMap {
         userService.createUser(x.firstName, x.lastName, x.username, x.password)
+        return message("user created")
     }
 
     data class LoginRequest(val username: String, val password: String)
 
     @PostMapping("/login")
-    fun login(@RequestBody x: LoginRequest) {
-        // не используется
-    }
+    fun login(@RequestBody x: LoginRequest) = message("no action")
 }
