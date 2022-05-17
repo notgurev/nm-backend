@@ -1,6 +1,5 @@
 package omgdendi.nmbackend.model.user
 
-import omgdendi.nmbackend.common.FakeContext
 import omgdendi.nmbackend.common.StringMap
 import omgdendi.nmbackend.common.UserId
 import omgdendi.nmbackend.common.message
@@ -17,8 +16,8 @@ class FriendController @Autowired constructor(val friendService: FriendService) 
     }
 
     @DeleteMapping("{friendId}")
-    fun removeFriend(@PathVariable friendId: UserId): StringMap {
-        friendService.removeFriend(FakeContext.USER_ID, friendId)
+    fun removeFriend(@PathVariable friendId: UserId, @RequestHeader("Authorization") subject: UserId): StringMap {
+        friendService.removeFriend(subject, friendId)
         return message("removed from friends")
     }
 
