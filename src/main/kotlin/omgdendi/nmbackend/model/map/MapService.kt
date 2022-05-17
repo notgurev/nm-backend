@@ -16,7 +16,7 @@ class MapService @Autowired constructor(
     val mapRepository: MapRepository,
     val userService: UserService
 ) {
-    fun createMap(ownerId: UserId, title: String, editorIds: List<UserId>?) {
+    fun createMap(ownerId: UserId, title: String, editorIds: List<UserId>? = null) {
         val owner = userService.getById(ownerId)
         val editors = editorIds?.let { userService.getUsersByIds(it) } ?: mutableListOf()
         val map = PlaceMap(owner = owner, editors = editors as MutableList<User>, title = title)

@@ -38,11 +38,7 @@ class Init @Autowired constructor(
         val notgurev = userService.getByUsername("notgurev")
         val omgdendi = userService.getByUsername("omgdendi")
 
-        var m = PlaceMap(owner = notgurev, title = "test map")
-        notgurev.createdPlaceMaps.add(m)
-        m = mapRepository.save(m)
-
-        m.editors.add(omgdendi)
+        mapService.createMap(notgurev.id, "notgurev's first map")
 
         var p = Place(title = "test place")
         p = placeRepository.save(p)
