@@ -8,8 +8,5 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class PlaceService @Autowired constructor(val placeRepository: PlaceRepository) {
-    fun getPlaceById(id: PlaceId): Place {
-        return placeRepository.findById(id).orElseThrow { IllegalArgumentException("Place with id = $id not found") }
-        // todo сделать этот метод generic
-    }
+    fun getPlaceById(id: PlaceId) = placeRepository.getById(id)
 }

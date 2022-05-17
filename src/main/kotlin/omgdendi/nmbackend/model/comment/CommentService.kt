@@ -41,9 +41,5 @@ class CommentService @Autowired constructor(
         comment.text = text
     }
 
-    fun getCommentById(id: CommentId): Comment {
-        return commentRepository.findById(id)
-            .orElseThrow { IllegalArgumentException("Comment with id = $id not found") }
-        // todo сделать этот метод generic
-    }
+    fun getCommentById(id: CommentId) = commentRepository.getById(id)
 }

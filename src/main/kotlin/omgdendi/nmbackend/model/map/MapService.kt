@@ -34,7 +34,5 @@ class MapService @Autowired constructor(
         TODO("Not yet implemented")
     }
 
-    fun getMapById(id: MapId): PlaceMap {
-        return mapRepository.findById(id).orElseThrow { IllegalArgumentException("Map with id = $id not found") }
-    }
+    fun getMapById(id: MapId) = mapRepository.getById(id)
 }

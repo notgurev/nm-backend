@@ -8,9 +8,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class UserService @Autowired constructor(val userRepository: UserRepository) {
-    fun getUserById(id: UserId): User {
-        return userRepository.findById(id).orElseThrow { IllegalArgumentException("User with id = $id not found") }
-    }
+    fun getUserById(id: UserId) = userRepository.getById(id)
 
     fun getUsersByIds(IDs: Iterable<UserId>): Iterable<User> {
         return userRepository.findAllById(IDs)
