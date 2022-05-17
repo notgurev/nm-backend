@@ -2,7 +2,6 @@ package omgdendi.nmbackend.model.place
 
 import omgdendi.nmbackend.common.PlaceId
 import omgdendi.nmbackend.common.StringMap
-import omgdendi.nmbackend.media.MediaService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -11,13 +10,13 @@ import org.springframework.web.multipart.MultipartFile
 @RequestMapping("/places")
 class PlaceController @Autowired constructor(
     val placeService: PlaceService,
-    val mediaService: MediaService,
 ) {
     @PostMapping("{placeId}/pictures")
     fun addPictureToPlace(@PathVariable placeId: PlaceId, @RequestParam("file") file: MultipartFile): StringMap {
+        val filename = placeService.addPictureToPlace(placeId, file)
         return mapOf(
             "message" to "picture added to place",
-            "file" to mediaService.saveFile(file)
+            "file" to filename
         )
     }
 
