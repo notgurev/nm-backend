@@ -3,6 +3,7 @@ package omgdendi.nmbackend.model.map
 import omgdendi.nmbackend.common.CommonException
 import omgdendi.nmbackend.common.MapId
 import omgdendi.nmbackend.common.UserId
+import omgdendi.nmbackend.model.place.Place
 import omgdendi.nmbackend.model.user.User
 import omgdendi.nmbackend.model.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -31,7 +32,9 @@ class MapService @Autowired constructor(
     }
 
     fun addPlaceToMap(mapId: MapId, title: String, description: String, latitude: Float, longitude: Float) {
-        TODO("Not yet implemented")
+        val m = mapRepository.getById(mapId)
+        val p = Place(latitude = latitude, longitude = longitude, description = description, title = title)
+        m.places.add(p)
     }
 
     fun getMapById(id: MapId) = mapRepository.getById(id)
