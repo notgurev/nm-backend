@@ -1,6 +1,6 @@
 package omgdendi.nmbackend.model.place
 
-import omgdendi.nmbackend.common.Settings
+import omgdendi.nmbackend.config.Settings
 import omgdendi.nmbackend.common.PlaceId
 import omgdendi.nmbackend.common.URL
 import omgdendi.nmbackend.model.comment.Comment
