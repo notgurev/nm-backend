@@ -2,6 +2,10 @@ package omgdendi.nmbackend
 
 import lombok.extern.slf4j.Slf4j
 import omgdendi.nmbackend.common.makeFriends
+import omgdendi.nmbackend.model.map.MapRepository
+import omgdendi.nmbackend.model.map.PlaceMap
+import omgdendi.nmbackend.model.place.Place
+import omgdendi.nmbackend.model.place.PlaceRepository
 import omgdendi.nmbackend.model.user.User
 import omgdendi.nmbackend.model.user.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional
 @Component
 class Init @Autowired constructor(
     val userRepository: UserRepository,
+    val mapRepository: MapRepository,
+    val placeRepository: PlaceRepository
 ) {
     @EventListener(ApplicationReadyEvent::class)
     @Transactional
@@ -35,6 +41,15 @@ class Init @Autowired constructor(
 
         val notgurev: User = userRepository.findByUsername("notgurev")!!
         val omgdendi: User = userRepository.findByUsername("omgdendi")!!
+
+        var m = PlaceMap(owner = notgurev, title = "test map")
+        notgurev.createdPlaceMaps.add(m)
+        m = mapRepository.save(m)
+
+        m.editors.add(omgdendi)
+
+        var p = Place(title = "test place")
+        p = placeRepository.save(p)
 
         makeFriends(notgurev, omgdendi)
     }

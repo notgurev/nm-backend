@@ -18,14 +18,16 @@ class MapService @Autowired constructor(
     fun createMap(ownerId: UserId, title: String, editorIds: List<UserId>?) {
         val owner = userService.getUserById(ownerId)
         val editors = editorIds?.let { userService.getUsersByIds(it) } ?: mutableListOf()
-        val map = PlaceMap(owner = owner, editors = editors as MutableList<User>)
+        val map = PlaceMap(owner = owner, editors = editors as MutableList<User>, title = title)
+        owner.createdPlaceMaps.add(map)
         mapRepository.save(map)
     }
 
     fun deleteMap(subject: UserId, mapId: MapId) {
         val map = getMapById(mapId)
         if (map.owner.id != subject) throw CommonException("Removing other user's maps is forbidden")
-        mapRepository.delete(map) // remove from user's created maps?
+        map.owner.createdPlaceMaps.remove(map)
+        mapRepository.delete(map)
     }
 
     fun addPlaceToMap(mapId: MapId, title: String, description: String, latitude: Float, longitude: Float) {
