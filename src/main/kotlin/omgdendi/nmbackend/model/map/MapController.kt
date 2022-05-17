@@ -1,7 +1,7 @@
 package omgdendi.nmbackend.model.map
 
+import omgdendi.nmbackend.common.JSON
 import omgdendi.nmbackend.common.MapId
-import omgdendi.nmbackend.common.StringMap
 import omgdendi.nmbackend.common.UserId
 import omgdendi.nmbackend.common.message
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,16 +16,16 @@ class MapController @Autowired constructor(val mapService: MapService) {
     fun createMap(
         @RequestBody createMapRequest: CreateMapRequest,
         @RequestHeader("Authorization") subject: UserId
-    ): StringMap {
-        mapService.createMap(subject, createMapRequest.name, createMapRequest.editors)
-        return message("map created")
+    ): JSON {
+        val map = mapService.createMap(subject, createMapRequest.name, createMapRequest.editors)
+        return mapOf("message" to "map created", "id" to map.id)
     }
 
     @DeleteMapping("/{mapId}")
     fun deleteMap(
         @PathVariable mapId: MapId,
         @RequestHeader("Authorization") subject: UserId
-    ): StringMap {
+    ): JSON {
         mapService.deleteMap(subject, mapId)
         return message("map deleted")
     }
@@ -42,9 +42,9 @@ class MapController @Autowired constructor(val mapService: MapService) {
         @PathVariable mapId: MapId,
         @RequestBody req: AddPlaceRequest,
         @RequestHeader("Authorization") subject: UserId
-    ): StringMap {
-        mapService.addPlaceToMap(mapId, req.title, req.description, req.latitude, req.longitude, subject)
-        return message("place added to map")
+    ): JSON {
+        val p = mapService.addPlaceToMap(mapId, req.title, req.description, req.latitude, req.longitude, subject)
+        return mapOf("message" to "place added to map", "id" to p.id)
     }
 
     @GetMapping("/{mapId}")
