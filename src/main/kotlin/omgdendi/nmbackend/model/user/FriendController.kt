@@ -1,7 +1,6 @@
 package omgdendi.nmbackend.model.user
 
 import omgdendi.nmbackend.common.JSON
-import omgdendi.nmbackend.common.StringMap
 import omgdendi.nmbackend.common.UserId
 import omgdendi.nmbackend.common.message
 import org.springframework.beans.factory.annotation.Autowired
