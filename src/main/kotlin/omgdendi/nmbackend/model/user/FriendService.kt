@@ -2,7 +2,6 @@ package omgdendi.nmbackend.model.user
 
 import omgdendi.nmbackend.common.CommonException
 import omgdendi.nmbackend.common.UserId
-import omgdendi.nmbackend.nullable
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -10,27 +9,17 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class FriendService @Autowired constructor(val userRepository: UserRepository) {
-    fun addFriend(subject: UserId, friend: UserId) { // todo test
-        userRepository.findById(subject).nullable?.apply {
-            userRepository.findById(friend).nullable?.let {
-                if (!this.friends.contains(it)) {
-                    this.friends.add(it)
-                } else {
-                    throw CommonException("User already in friend list")
-                }
-            }
-        }
+    fun addFriend(subject: UserId, friend: UserId) {
+        val first = userRepository.getById(subject)
+        val second = userRepository.getById(friend)
+        if (first.friends.contains(second)) throw CommonException("User already in friend list")
+        first.friends.add(second)
     }
 
-    fun removeFriend(subject: UserId, friend: UserId) { // todo test
-        userRepository.findById(subject).nullable?.apply {
-            userRepository.findById(friend).nullable?.let {
-                if (this.friends.contains(it)) {
-                    this.friends.remove(it)
-                } else {
-                    throw CommonException("User not present in friend list")
-                }
-            }
-        }
+    fun removeFriend(subject: UserId, friend: UserId) {
+        val first = userRepository.getById(subject)
+        val second = userRepository.getById(friend)
+        if (!first.friends.contains(second)) throw CommonException("User not present in friend list")
+        first.friends.remove(second)
     }
 }
