@@ -1,6 +1,8 @@
 package omgdendi.nmbackend.model.comment
 
-import omgdendi.nmbackend.common.*
+import omgdendi.nmbackend.common.CommentId
+import omgdendi.nmbackend.common.PlaceId
+import omgdendi.nmbackend.common.UserId
 import omgdendi.nmbackend.common.exceptions.RestrictedActionException
 import omgdendi.nmbackend.model.place.PlaceService
 import omgdendi.nmbackend.model.user.UserService
@@ -15,12 +17,13 @@ class CommentService @Autowired constructor(
     val placeService: PlaceService,
     val commentRepository: CommentRepository
 ) {
-    fun addCommentToPlace(placeId: PlaceId, authorId: UserId, text: String) {
+    fun addCommentToPlace(placeId: PlaceId, authorId: UserId, text: String): Comment {
         val author = userService.getById(authorId)
         val place = placeService.getPlaceById(placeId)
-        val comment = Comment(author = author, text = text, place = place)
-        commentRepository.save(comment)
+        var comment = Comment(author = author, text = text, place = place)
+        comment = commentRepository.save(comment)
         place.comments.add(comment)
+        return comment
     }
 
     fun removeComment(subject: UserId, placeId: PlaceId, commentId: CommentId) {
