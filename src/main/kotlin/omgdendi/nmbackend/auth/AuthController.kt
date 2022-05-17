@@ -1,6 +1,6 @@
 package omgdendi.nmbackend.auth
 
-import omgdendi.nmbackend.common.StringMap
+import omgdendi.nmbackend.common.JSON
 import omgdendi.nmbackend.common.message
 import omgdendi.nmbackend.model.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,9 +17,9 @@ class AuthController @Autowired constructor(
     data class RegisterRequest(val firstName: String, val lastName: String, val username: String, val password: String)
 
     @PostMapping("/register")
-    fun register(@RequestBody x: RegisterRequest): StringMap {
-        userService.createUser(x.firstName, x.lastName, x.username, x.password)
-        return message("user created")
+    fun register(@RequestBody x: RegisterRequest): JSON {
+        val u = userService.createUser(x.firstName, x.lastName, x.username, x.password)
+        return mapOf("message" to "user created", "id" to u.id)
     }
 
     data class LoginRequest(val username: String, val password: String)
