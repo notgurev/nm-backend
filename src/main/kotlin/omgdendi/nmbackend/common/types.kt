@@ -5,5 +5,4 @@ typealias MapId = Long
 typealias PlaceId = Long
 typealias CommentId = Long
 
-typealias StringMap = Map<String, String>
 typealias JSON = Map<String, Any>
