@@ -19,7 +19,7 @@ class PlaceService @Autowired constructor(
         val filename = mediaService.saveFile(file)
 
         val place = getPlaceById(placeId)
-        place.pictureUrl = filename
+        place.picturePath = filename
 
         return filename
     }

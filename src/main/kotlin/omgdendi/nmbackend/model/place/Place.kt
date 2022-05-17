@@ -1,8 +1,6 @@
 package omgdendi.nmbackend.model.place
 
-import omgdendi.nmbackend.config.Settings
 import omgdendi.nmbackend.common.PlaceId
-import omgdendi.nmbackend.common.URL
 import omgdendi.nmbackend.model.comment.Comment
 import javax.persistence.*
 
@@ -13,7 +11,7 @@ class Place(
     var id: PlaceId = 0,
 
     @Column
-    var pictureUrl: URL? = Settings.DEFAULT_PICTURE,
+    var picturePath: String? = null,
 
     @Column
     var latitude: Float = 0.0f,
