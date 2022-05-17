@@ -11,7 +11,6 @@ import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import kotlin.math.log
 
 @Slf4j
 @Component
@@ -34,15 +33,22 @@ class Init @Autowired constructor(
 
         val m1 = mapService.createMap(notgurev.id, "Университеты СПб")
 
-        val p = mapService.addPlaceToMap(
-            m1.id, "ИТМО",
-            "Крутой универ и все такое", 100f, 200f, notgurev.id
-        )
-
         mapService.addEditorsToMap(m1.id, listOf(omgdendi.id, sealOfTime.id))
         mapService.removeEditorFromMap(m1.id, sealOfTime.id)
 
-        commentService.addCommentToPlace(p.id, notgurev.id, "Я тут учусь!")
+        val p1 = mapService.addPlaceToMap(
+            m1.id, "ИТМО",
+            "Крутой универ", 100f, 200f, notgurev.id
+        )
+        val p2 = mapService.addPlaceToMap(
+            m1.id, "СПбГУ",
+            "привет", 2f, 4f, omgdendi.id
+        )
+
+        commentService.addCommentToPlace(p1.id, notgurev.id, "Я тут учусь")
+        commentService.addCommentToPlace(p1.id, omgdendi.id, "Я тоже тут учусь")
+
+        commentService.addCommentToPlace(p2.id, omgdendi.id, "вау")
 
         makeFriends(notgurev, omgdendi)
 
