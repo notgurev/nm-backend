@@ -1,6 +1,6 @@
 package omgdendi.nmbackend.model.map
 
-import omgdendi.nmbackend.FakeContext
+import omgdendi.nmbackend.common.FakeContext
 import omgdendi.nmbackend.common.MapId
 import omgdendi.nmbackend.common.UserId
 import org.springframework.beans.factory.annotation.Autowired

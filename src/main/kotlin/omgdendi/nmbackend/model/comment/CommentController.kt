@@ -1,6 +1,6 @@
 package omgdendi.nmbackend.model.comment
 
-import omgdendi.nmbackend.FakeContext
+import omgdendi.nmbackend.common.FakeContext
 import omgdendi.nmbackend.common.CommentId
 import omgdendi.nmbackend.common.PlaceId
 import org.springframework.beans.factory.annotation.Autowired

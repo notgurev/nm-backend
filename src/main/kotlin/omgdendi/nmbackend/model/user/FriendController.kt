@@ -1,6 +1,6 @@
 package omgdendi.nmbackend.model.user
 
-import omgdendi.nmbackend.FakeContext
+import omgdendi.nmbackend.common.FakeContext
 import omgdendi.nmbackend.common.UserId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*

@@ -1,4 +1,4 @@
-package omgdendi.nmbackend
+package omgdendi.nmbackend.common
 
 object Settings {
     const val DEFAULT_PICTURE =
