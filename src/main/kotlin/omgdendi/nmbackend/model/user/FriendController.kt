@@ -21,4 +21,7 @@ class FriendController @Autowired constructor(val friendService: FriendService) 
         friendService.removeFriend(FakeContext.USER_ID, friendId)
         return message("removed from friends")
     }
+
+    @GetMapping
+    fun getFriends(@RequestHeader("Authorization") subject: UserId) = friendService.getFriends(subject)
 }

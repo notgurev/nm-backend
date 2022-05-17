@@ -22,4 +22,8 @@ class FriendService @Autowired constructor(val userRepository: UserRepository) {
         if (!first.friends.contains(second)) throw CommonException("User not present in friend list")
         first.friends.remove(second)
     }
+
+    fun getFriends(subject: UserId): List<UserId> {
+        return userRepository.getById(subject).friends.map { it.id }
+    }
 }
