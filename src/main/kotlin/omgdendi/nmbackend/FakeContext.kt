@@ -1,7 +1,5 @@
 package omgdendi.nmbackend
 
-import omgdendi.nmbackend.common.UserId
-
 object FakeContext {
-    const val USER_ID: UserId = 0
+    const val USER_ID: Long = 0L
 }

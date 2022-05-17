@@ -1,0 +1,20 @@
+server:
+  error:
+    include-stacktrace: always
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: MARKOV
+    driverClassName: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    database: postgresql
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
