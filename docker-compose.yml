@@ -9,15 +9,5 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  minio:
-    container_name: nm_minio
-    image: 'minio/minio'
-    command: server --console-address ":9001" /data
-    ports:
-      - '9001:9001'
-    volumes:
-      - minio_data:/data
-
 volumes:
   postgres_data:
-  minio_data:
