@@ -16,12 +16,14 @@ class EditorsController @Autowired constructor(
 
     @PostMapping("/{mapId}/editors")
     fun addEditorsToMap(@RequestBody request: AddEditorsRequest, @PathVariable mapId: MapId): StringMap {
+        // todo auth
         mapService.addEditorsToMap(mapId, request.editors)
         return message("editors added")
     }
 
     @DeleteMapping("/{mapId}/editors/{editorId}")
     fun removeEditorFromMap(@PathVariable mapId: MapId, @PathVariable editorId: UserId): StringMap {
+        // todo auth
         mapService.removeEditorFromMap(mapId, editorId)
         return message("editor removed")
     }

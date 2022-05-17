@@ -1,6 +1,9 @@
 package omgdendi.nmbackend.model.map
 
-import omgdendi.nmbackend.common.*
+import omgdendi.nmbackend.common.MapId
+import omgdendi.nmbackend.common.StringMap
+import omgdendi.nmbackend.common.UserId
+import omgdendi.nmbackend.common.message
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -10,14 +13,20 @@ class MapController @Autowired constructor(val mapService: MapService) {
     data class CreateMapRequest(val name: String, val editors: List<UserId>?)
 
     @PostMapping
-    fun createMap(@RequestBody createMapRequest: CreateMapRequest): StringMap {
-        mapService.createMap(FakeContext.USER_ID, createMapRequest.name, createMapRequest.editors)
+    fun createMap(
+        @RequestBody createMapRequest: CreateMapRequest,
+        @RequestHeader("Authorization") subject: UserId
+    ): StringMap {
+        mapService.createMap(subject, createMapRequest.name, createMapRequest.editors)
         return message("map created")
     }
 
     @DeleteMapping("/{mapId}")
-    fun deleteMap(@PathVariable mapId: MapId): StringMap {
-        mapService.deleteMap(FakeContext.USER_ID, mapId)
+    fun deleteMap(
+        @PathVariable mapId: MapId,
+        @RequestHeader("Authorization") subject: UserId
+    ): StringMap {
+        mapService.deleteMap(subject, mapId)
         return message("map deleted")
     }
 
@@ -29,8 +38,12 @@ class MapController @Autowired constructor(val mapService: MapService) {
     )
 
     @PostMapping("/{mapId}/places")
-    fun addPlaceToMap(@PathVariable mapId: MapId, @RequestBody req: AddPlaceRequest): StringMap {
-        mapService.addPlaceToMap(mapId, req.title, req.description, req.latitude, req.longitude)
+    fun addPlaceToMap(
+        @PathVariable mapId: MapId,
+        @RequestBody req: AddPlaceRequest,
+        @RequestHeader("Authorization") subject: UserId
+    ): StringMap {
+        mapService.addPlaceToMap(mapId, req.title, req.description, req.latitude, req.longitude, subject)
         return message("place added to map")
     }
 

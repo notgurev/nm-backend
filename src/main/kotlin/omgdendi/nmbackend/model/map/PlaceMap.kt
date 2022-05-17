@@ -1,6 +1,7 @@
 package omgdendi.nmbackend.model.map
 
 import omgdendi.nmbackend.common.MapId
+import omgdendi.nmbackend.common.UserId
 import omgdendi.nmbackend.model.place.Place
 import omgdendi.nmbackend.model.user.User
 import javax.persistence.*

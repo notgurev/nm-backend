@@ -11,6 +11,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
+import kotlin.math.log
 
 @Slf4j
 @Component
@@ -23,13 +24,17 @@ class Init @Autowired constructor(
     @EventListener(ApplicationReadyEvent::class)
     @Transactional
     fun init() {
+        // todo add empty check
         val notgurev = userService.createUser("Никита", "Гурьев", "notgurev", "<todo>")
         val omgdendi = userService.createUser("Абай", "Байтаков", "omgdendi", "<todo>")
         val sealOfTime = userService.createUser("Матвей", "Вдовицын", "sealOfTime", "<todo>")
 
         val m1 = mapService.createMap(notgurev.id, "Университеты СПб")
 
-        val p = mapService.addPlaceToMap(m1.id, "ИТМО", "Крутой универ и все такое", 100f, 200f)
+        val p = mapService.addPlaceToMap(
+            m1.id, "ИТМО",
+            "Крутой универ и все такое", 100f, 200f, notgurev.id
+        )
 
         mapService.addEditorsToMap(m1.id, listOf(omgdendi.id, sealOfTime.id))
         mapService.removeEditorFromMap(m1.id, sealOfTime.id)

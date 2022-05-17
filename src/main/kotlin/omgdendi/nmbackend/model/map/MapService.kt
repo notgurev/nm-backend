@@ -1,7 +1,7 @@
 package omgdendi.nmbackend.model.map
 
-import omgdendi.nmbackend.common.CommonException
 import omgdendi.nmbackend.common.MapId
+import omgdendi.nmbackend.common.OwnershipException
 import omgdendi.nmbackend.common.UserId
 import omgdendi.nmbackend.model.place.Place
 import omgdendi.nmbackend.model.place.PlaceRepository
@@ -28,13 +28,23 @@ class MapService @Autowired constructor(
 
     fun deleteMap(subject: UserId, mapId: MapId) {
         val map = getMapById(mapId)
-        if (map.owner.id != subject) throw CommonException("Removing other user's maps is forbidden")
+        if (map.owner.id != subject) {
+            throw OwnershipException("User $subject cannot delete map $mapId")
+        }
         map.owner.createdPlaceMaps.remove(map)
         mapRepository.delete(map)
     }
 
-    fun addPlaceToMap(mapId: MapId, title: String, description: String, latitude: Float, longitude: Float): Place {
+    fun addPlaceToMap(
+        mapId: MapId, title: String, description: String,
+        latitude: Float, longitude: Float, subject: UserId
+    ): Place {
         val m = mapRepository.getById(mapId)
+
+        if (m.editors.map { it.id }.contains(subject).not()) {
+            throw OwnershipException("User $subject cannot edit map $mapId")
+        }
+
         val p = Place(latitude = latitude, longitude = longitude, description = description, title = title)
         placeRepository.save(p)
         m.places.add(p)
