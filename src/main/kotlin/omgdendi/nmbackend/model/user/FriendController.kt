@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/friends")
 class FriendController @Autowired constructor(val friendService: FriendService) {
     @PostMapping("{friendId}")
-    fun addFriend(@PathVariable friendId: UserId): StringMap {
-        friendService.addFriend(FakeContext.USER_ID, friendId)
+    fun addFriend(@PathVariable friendId: UserId, @RequestHeader("Authorization") subject: UserId): StringMap {
+        friendService.addFriend(subject, friendId)
         return message("added to friends")
     }
 

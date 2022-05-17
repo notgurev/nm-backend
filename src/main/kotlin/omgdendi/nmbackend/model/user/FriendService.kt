@@ -12,7 +12,9 @@ class FriendService @Autowired constructor(val userRepository: UserRepository) {
     fun addFriend(subject: UserId, friend: UserId) { // todo test
         userRepository.findById(subject).nullable?.apply {
             userRepository.findById(friend).nullable?.let {
-                this.friends.add(it)
+                if (!this.friends.contains(it)) {
+                    this.friends.add(it)
+                }
             }
         }
     }
@@ -20,7 +22,9 @@ class FriendService @Autowired constructor(val userRepository: UserRepository) {
     fun removeFriend(subject: UserId, friend: UserId) { // todo test
         userRepository.findById(subject).nullable?.apply {
             userRepository.findById(friend).nullable?.let {
-                this.friends.remove(it)
+                if (this.friends.contains(it)) {
+                    this.friends.remove(it)
+                }
             }
         }
     }
