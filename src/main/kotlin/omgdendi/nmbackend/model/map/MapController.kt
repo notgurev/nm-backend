@@ -34,7 +34,7 @@ class MapController @Autowired constructor(val mapService: MapService) {
     }
 
     @GetMapping("/{mapId}")
-    fun getMapInfo(@PathVariable mapId: MapId): PlaceMap { // todo mapInfo dto
+    fun getMapInfo(@PathVariable mapId: MapId): PlaceMap {
         return mapService.getMapById(mapId)
     }
 }
