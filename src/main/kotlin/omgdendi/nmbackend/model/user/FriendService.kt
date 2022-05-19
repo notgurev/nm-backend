@@ -23,7 +23,7 @@ class FriendService @Autowired constructor(val userRepository: UserRepository) {
         first.friends.remove(second)
     }
 
-    fun getFriends(subject: UserId): List<UserId> {
-        return userRepository.getById(subject).friends.map { it.id }
+    fun getFriends(subject: UserId): List<User> {
+        return userRepository.getById(subject).friends
     }
 }

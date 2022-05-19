@@ -3,6 +3,7 @@ package omgdendi.nmbackend.model.user
 import omgdendi.nmbackend.common.JSON
 import omgdendi.nmbackend.common.UserId
 import omgdendi.nmbackend.common.message
+import omgdendi.nmbackend.model.user.dto.UserSmallDTO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -22,5 +23,7 @@ class FriendController @Autowired constructor(val friendService: FriendService) 
     }
 
     @GetMapping
-    fun getFriends(@RequestHeader("Authorization") subject: UserId) = friendService.getFriends(subject)
+    fun getFriends(@RequestHeader("Authorization") subject: UserId): List<UserSmallDTO> {
+        return friendService.getFriends(subject).map { UserSmallDTO.fromUser(it) }
+    }
 }
