@@ -26,5 +26,9 @@ class User(
     var friends: MutableList<User> = mutableListOf(),
 
     @OneToMany
-    var createdPlaceMaps: MutableList<PlaceMap> = mutableListOf()
+    var createdPlaceMaps: MutableList<PlaceMap> = mutableListOf(),
+
+    @ManyToMany(targetEntity = PlaceMap::class, mappedBy = "editors")
+    var editableMaps: MutableList<PlaceMap> = mutableListOf()
 )
+

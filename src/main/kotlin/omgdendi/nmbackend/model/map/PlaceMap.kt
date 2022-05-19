@@ -18,7 +18,7 @@ class PlaceMap(
     @Column
     var title: String,
 
-    @ManyToMany
+    @ManyToMany(targetEntity = User::class)
     var editors: MutableList<User> = mutableListOf(),
 
     @OneToMany
