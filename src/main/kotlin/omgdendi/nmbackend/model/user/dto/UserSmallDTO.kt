@@ -9,14 +9,5 @@ data class UserSmallDTO(
     var lastName: String,
     var username: String
 ) {
-    companion object {
-        fun fromUser(u: User): UserSmallDTO {
-            return UserSmallDTO(
-                id = u.id,
-                firstname = u.firstname,
-                lastName = u.lastName,
-                username = u.username
-            )
-        }
-    }
+    constructor(u: User) : this(u.id, u.firstname, u.lastName, u.username)
 }

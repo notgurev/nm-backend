@@ -3,6 +3,7 @@ package omgdendi.nmbackend.model.comment
 import omgdendi.nmbackend.common.CommentId
 import omgdendi.nmbackend.model.place.Place
 import omgdendi.nmbackend.model.user.User
+import omgdendi.nmbackend.model.user.dto.UserSmallDTO
 import javax.persistence.*
 
 @Entity
@@ -20,3 +21,4 @@ class Comment(
     @ManyToOne
     val place: Place
 )
+

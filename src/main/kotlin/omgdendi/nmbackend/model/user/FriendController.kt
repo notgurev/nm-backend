@@ -24,6 +24,6 @@ class FriendController @Autowired constructor(val friendService: FriendService) 
 
     @GetMapping
     fun getFriends(@RequestHeader("Authorization") subject: UserId): List<UserSmallDTO> {
-        return friendService.getFriends(subject).map { UserSmallDTO.fromUser(it) }
+        return friendService.getFriends(subject).map { UserSmallDTO(it) }
     }
 }

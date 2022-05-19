@@ -12,15 +12,11 @@ data class MapDTO(
     var editors: List<UserSmallDTO>,
     var places: List<PlaceId>
 ) {
-    companion object {
-        fun fromPlaceMap(m: PlaceMap): MapDTO {
-            return MapDTO(
-                id = m.id,
-                owner = UserSmallDTO.fromUser(m.owner),
-                title = m.title,
-                editors = m.editors.map { e -> UserSmallDTO.fromUser(e) },
-                places = m.places.map { p -> p.id }
-            )
-        }
-    }
+    constructor(m: PlaceMap) : this(
+        m.id,
+        UserSmallDTO(m.owner),
+        m.title,
+        m.editors.map { e -> UserSmallDTO(e) },
+        m.places.map { p -> p.id }
+    )
 }

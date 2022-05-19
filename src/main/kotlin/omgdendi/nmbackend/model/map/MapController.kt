@@ -49,8 +49,8 @@ class MapController @Autowired constructor(val mapService: MapService) {
     }
 
     @GetMapping("/{mapId}")
-    fun getMapInfo(@PathVariable mapId: MapId) = MapDTO.fromPlaceMap(mapService.getMapById(mapId))
+    fun getMapInfo(@PathVariable mapId: MapId) = MapDTO(mapService.getMapById(mapId))
 
     @GetMapping
-    fun getAllMaps() = mapService.getAllMaps().map { MapDTO.fromPlaceMap(it) }
+    fun getAllMaps() = mapService.getAllMaps().map { MapDTO(it) }
 }

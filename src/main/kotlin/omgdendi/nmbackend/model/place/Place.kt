@@ -28,3 +28,4 @@ class Place(
     @OneToMany
     var comments: MutableList<Comment> = mutableListOf()
 )
+

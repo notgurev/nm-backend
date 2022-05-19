@@ -3,6 +3,7 @@ package omgdendi.nmbackend.model.place
 import omgdendi.nmbackend.common.JSON
 import omgdendi.nmbackend.common.PlaceId
 import omgdendi.nmbackend.common.message
+import omgdendi.nmbackend.model.place.dto.PlaceDTO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -24,7 +25,7 @@ class PlaceController @Autowired constructor(
     }
 
     @GetMapping("{placeId}")
-    fun getPlaceInfo(@PathVariable placeId: PlaceId): Place {
-        return placeService.getPlaceById(placeId)
+    fun getPlaceInfo(@PathVariable placeId: PlaceId): PlaceDTO {
+        return PlaceDTO(placeService.getPlaceById(placeId))
     }
 }
