@@ -4,6 +4,7 @@ import omgdendi.nmbackend.common.JSON
 import omgdendi.nmbackend.common.MapId
 import omgdendi.nmbackend.common.UserId
 import omgdendi.nmbackend.common.message
+import omgdendi.nmbackend.model.map.dto.MapDTO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -48,10 +49,8 @@ class MapController @Autowired constructor(val mapService: MapService) {
     }
 
     @GetMapping("/{mapId}")
-    fun getMapInfo(@PathVariable mapId: MapId): PlaceMap {
-        return mapService.getMapById(mapId)
-    }
+    fun getMapInfo(@PathVariable mapId: MapId) = MapDTO.fromPlaceMap(mapService.getMapById(mapId))
 
     @GetMapping
-    fun getAllMaps() = mapService.getAllMaps()
+    fun getAllMaps() = mapService.getAllMaps().map { MapDTO.fromPlaceMap(it) }
 }

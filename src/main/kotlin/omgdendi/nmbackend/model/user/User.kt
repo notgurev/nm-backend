@@ -27,5 +27,4 @@ class User(
 
     @OneToMany
     var createdPlaceMaps: MutableList<PlaceMap> = mutableListOf()
-) {
-}
+)
