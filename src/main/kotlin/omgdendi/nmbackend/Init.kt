@@ -38,11 +38,11 @@ class Init @Autowired constructor(
 
         val p1 = mapService.addPlaceToMap(
             m1.id, "ИТМО",
-            "Крутой универ", 100f, 200f, notgurev.id
+            "Крутой универ", 59.92793f, 30.339046f, notgurev.id
         )
         val p2 = mapService.addPlaceToMap(
             m1.id, "СПбГУ",
-            "привет", 2f, 4f, omgdendi.id
+            "привет", 59.9524f, 30.316875f, omgdendi.id
         )
 
         commentService.addCommentToPlace(p1.id, notgurev.id, "Я тут учусь")
@@ -50,7 +50,12 @@ class Init @Autowired constructor(
 
         commentService.addCommentToPlace(p2.id, omgdendi.id, "вау")
 
+
+        val m2 = mapService.createMap(omgdendi.id, "Крутая карта")
+        mapService.addEditorsToMap(m2.id, listOf(notgurev.id))
+
         makeFriends(notgurev, omgdendi)
+        makeFriends(omgdendi, sealOfTime)
 
         println("--- --- --- Init complete --- --- ---")
     }

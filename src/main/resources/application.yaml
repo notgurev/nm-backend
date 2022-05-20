@@ -1,12 +1,13 @@
 server:
+  address: 192.168.0.116
   error:
     include-stacktrace: always
   port: 8080
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/nm
     username: postgres
-    password: MARKOV
+    password: 123
     driverClassName: org.postgresql.Driver
 
   jpa:
